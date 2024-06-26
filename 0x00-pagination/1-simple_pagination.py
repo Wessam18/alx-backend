@@ -1,22 +1,16 @@
 #!/usr/bin/env python3
-"""Simple pagination"""
-
+"""import module"""
 
 import csv
 import math
-from typing import List, Tuple
+from typing import List,Tuple
 
 
 def index_range(page: int, page_size: int) -> Tuple:
-    """The function should return a tuple of size two containing
-        a start index and an end index
-    """
-
-    start_index = (page - 1) * page_size
-    end_index = start_index + page_size
-
-    return start_index, end_index
-
+    """ """
+    start_indx = ((page - 1) * page_size)
+    end_indx = (start_indx + page_size) 
+    return (start_indx, end_indx)
 
 class Server:
     """Server class to paginate a database of popular baby names.
@@ -42,5 +36,11 @@ class Server:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
         start, end = index_range(page, page_size)
-        data_set = self.dataset()
-        return data_set[start: end]
+        dataset = self.dataset()
+
+        # Handle case where indices are out of range
+        if start >= len(dataset):
+            return []
+
+        return dataset[start:end]
+        
