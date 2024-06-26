@@ -3,14 +3,15 @@
 
 import csv
 import math
-from typing import List,Tuple
+from typing import List, Tuple
 
 
 def index_range(page: int, page_size: int) -> Tuple:
-    """ """
+    """index range"""
     start_indx = ((page - 1) * page_size)
-    end_indx = (start_indx + page_size) 
+    end_indx = (start_indx + page_size)
     return (start_indx, end_indx)
+
 
 class Server:
     """Server class to paginate a database of popular baby names.
@@ -18,6 +19,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """init method"""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -43,4 +45,3 @@ class Server:
             return []
 
         return dataset[start:end]
-        
