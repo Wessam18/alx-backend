@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Simple pagination"""
-
+"""import module"""
 
 import csv
 import math
@@ -8,14 +7,10 @@ from typing import List, Tuple, Dict, Any
 
 
 def index_range(page: int, page_size: int) -> Tuple:
-    """The function should return a tuple of size two containing
-        a start index and an end index
-    """
-
-    start_index = (page - 1) * page_size
-    end_index = start_index + page_size
-
-    return start_index, end_index
+    """index range"""
+    start_indx = ((page - 1) * page_size)
+    end_indx = (start_indx + page_size)
+    return (start_indx, end_indx)
 
 
 class Server:
@@ -24,6 +19,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """init method"""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -42,12 +38,16 @@ class Server:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
         start, end = index_range(page, page_size)
-        data_set = self.dataset()
-        return data_set[start: end]
+        dataset = self.dataset()
+
+        # Handle case where indices are out of range
+        if start >= len(dataset):
+            return []
+
+        return dataset[start:end]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
         """hypermedai pagination"""
-
         total_items = len(self.dataset())
         total_pages = (total_items + page_size - 1) // page_size
 
